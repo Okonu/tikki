@@ -14,6 +14,8 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                'pacifico': ['Pacifico', 'cursive'],
+                'shadows-into-light': ['Shadows Into Light', 'cursive'],
             },
         },
     },
