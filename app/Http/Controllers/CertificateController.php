@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificate;
-use APP\Services\CertificateService;
+use App\Services\CertificateService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace APP\Services;
+namespace App\Services;
 
 use App\Models\Endpoint;
 use Illuminate\Support\Facades\Http;
@@ -31,6 +31,10 @@ class CertificateService
     {
         $normalizedData = [];
 
+        if (!is_array($data) && !is_object($data)) {
+            return $normalizedData;
+        }
+
         foreach ($data as $item) {
             $normalizedItem = [];
 
@@ -42,5 +46,26 @@ class CertificateService
         }
 
         return $normalizedData;
+    }
+
+
+    public function fetchAllCertificates()
+    {
+        $endpoints = Endpoint::with('mappings')->get();
+        $allCertificates = [];
+
+        foreach ($endpoints as $endpoint) {
+            $response = Http::get($endpoint->url);
+
+            if($response->successful()) {
+                $data = $response->json();
+
+                $normalizedData = $this->normalizedData($data, $endpoint->mappings);
+
+                $allCertificates = array_merge($allCertificates, $normalizedData);
+            }
+        }
+
+        return $allCertificates;
     }
 }

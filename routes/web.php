@@ -30,7 +30,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/certificates', [CertificateController::class, 'index']);
-Route::get('/check-certificate', [CertificateController::class, 'showForm'])->name('check-certificate');
+Route::get('/checkCertificate', [CertificateController::class, 'showForm']);
 
 Route::post('/check-certificate', [CertificateController::class, 'checkCertificate'])->name('check-certificate');
 
