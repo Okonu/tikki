@@ -28,11 +28,11 @@ class CertificateController extends Controller
         $certificate = Certificate::where('certificate_number', $certificateNumber)->first();
 
         if ($certificate) {
-            return Inertia::render('Certificates/CertificateDetails', [
+            return Inertia::render('Certificates/CheckCertificate', [
                 'certificate' => $certificate,
             ]);
         } else {
-            return Inertia::render('Certificates/CheckCertificateError', [
+            return Inertia::render('Certificates/CheckCertificate', [
                 'message' => 'Certificate not found.',
             ]);
         }
