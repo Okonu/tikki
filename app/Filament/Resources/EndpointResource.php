@@ -29,6 +29,12 @@ class EndpointResource extends Resource
                 Forms\Components\TextInput::make('url')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('mappings.source_field')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('mappings.target_field')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -40,9 +46,11 @@ class EndpointResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('source_field')
+                Tables\Columns\TextColumn::make('mappings.source_field')
+                    ->label('Source Field')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('target_field')
+                Tables\Columns\TextColumn::make('mappings.target_field')
+                    ->label('Target Field')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

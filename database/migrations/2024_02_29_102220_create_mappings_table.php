@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mappings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('endpoint_id')->constrained();
+            $table->foreignId('endpoint_id');
             $table->string('source_field');
             $table->string('target_field');
             $table->timestamps();
