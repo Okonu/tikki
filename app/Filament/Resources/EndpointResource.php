@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EndpointResource\Pages;
-use App\Filament\Resources\EndpointResource\RelationManagers;
-use App\Models\Endpoint;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Endpoint;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\EndpointResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
+use App\Filament\Resources\EndpointResource\RelationManagers;
+use App\Filament\Resources\EndpointResource\RelationManagers\MappingsRelationManager;
 
 class EndpointResource extends Resource
 {
@@ -22,51 +25,32 @@ class EndpointResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('url')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('mappings.source_field')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('mappings.target_field')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+            ->schema(Endpoint::getForm());
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('url')
+                TextColumn::make('url')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('mappings.source_field')
+                TextColumn::make('mappings.source')
                     ->label('Source Field')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('mappings.target_field')
+                TextColumn::make('mappings.target')
                     ->label('Target Field')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -78,7 +62,7 @@ class EndpointResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\MappingsRelationManager::class,
         ];
     }
 

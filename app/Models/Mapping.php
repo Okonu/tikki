@@ -9,10 +9,10 @@ class Mapping extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['endpoint_id', 'source_field', 'target_field'];
-
+    protected $fillable = ['endpoint_id', 'target', 'source'];
+    
     public function endpoint()
     {
-        return $this->belongsTo(Endpoint::class);
+        return $this->belongsTo(Endpoint::class, 'endpoint_id');
     }
 }
