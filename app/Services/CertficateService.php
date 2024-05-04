@@ -40,7 +40,7 @@ class CertificateService
             $normalizedItem = [];
 
             foreach ($mappings as $mapping) {
-                $normalizedItem[$mapping->target_field] = $item[$mapping->source_field] ?? '';
+                $normalizedItem[$mapping->target] = $item[$mapping->source] ?? '';
             }
 
             $normalizedData[] = $normalizedItem;
