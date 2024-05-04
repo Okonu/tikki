@@ -18,6 +18,11 @@ Compliance Checks: The API supports compliance checks against industry standards
 RESTful API: The API provides a RESTful interface, making it easy for developers to integrate with various applications and platforms.
 Detailed Responses: The API returns detailed responses, including error messages and status codes, to aid in troubleshooting and error handling.
 
+#### Endpoints
+
+###  Certificate lookup: POST '/certificate/{certificateNumber}
+        { "certificate_number": " "}
+
 ### Getting Started
 To get started with the Certificate Validation API, follow these steps:
 
