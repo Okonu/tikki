@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Endpoint;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class CertificateService
 {
@@ -53,19 +54,24 @@ class CertificateService
     {
         $endpoints = Endpoint::with('mappings')->get();
         $allCertificates = [];
-
+    
         foreach ($endpoints as $endpoint) {
             $response = Http::get($endpoint->url);
-
+    
             if($response->successful()) {
                 $data = $response->json();
-
+    
                 $normalizedData = $this->normalizedData($data, $endpoint->mappings);
-
+    
                 $allCertificates = array_merge($allCertificates, $normalizedData);
             }
         }
-
+    
+        Session::put('allCertificates', $allCertificates);
+    
+        // Session::forget('allCertificates');
+    
         return $allCertificates;
     }
+    
 }

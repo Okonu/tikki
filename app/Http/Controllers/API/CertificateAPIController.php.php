@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\CertificateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CertificateAPIController extends Controller
 {
@@ -20,12 +21,20 @@ class CertificateAPIController extends Controller
      */
     public function checkCertificate(Request $request, $certificateNumber)
     {
-        $certificateDetails = $this->certificateService->fetchCertificateDetails($certificateNumber);
+        $certificateDetails = Session::get("certificateDetails.{$certificateNumber}");
 
         if ($certificateDetails) {
             return response()->json($certificateDetails);
         } else {
-            return response()->json(['message' => 'Certificate not found.'], 404);
+            $certificateDetails = $this->certificateService->fetchCertificateDetails($certificateNumber);
+
+            if ($certificateDetails) {
+                Session::put("certificateDetails.{$certificateNumber}", $certificateDetails);
+
+                return response()->json($certificateDetails);
+            } else {
+                return response()->json(['message' => 'Certificate details not found.'], 404);
+            }
         }
     }
 
