@@ -8,9 +8,12 @@ TIKKI is a Certificate Validating web service designed to streamline the process
 1. Certificate Validation
 Certificate Number Lookup: Users can enter their certificate number to fetch the details of their certificate, including the issuing institution, issuing date, and owner name.
 Normalization of Data: The API normalizes the data fetched from external sources to ensure consistency and accuracy, mapping source fields to target fields as defined in the mappings.
+
 2. Endpoint Management
 Dynamic Endpoint Configuration: The Application allows for the dynamic configuration of endpoints and their mappings, enabling the addition of new sources or the modification of existing ones without the need for code changes.
 Session Management: The API utilizes session storage to cache fetched certificate details, reducing the need for repeated requests and improving performance.
+
+- One is able to add endpoints, and the primary certificate fields,(source fields) which are normalized used for normalizing the results.
 3. Security and Compliance
 Secure Data Handling: All data is handled securely, with encryption in transit and at rest, ensuring that certificate details are protected from unauthorized access.
 Compliance Checks: The API supports compliance checks against industry standards, helping users ensure that their certificates meet the necessary requirements.
